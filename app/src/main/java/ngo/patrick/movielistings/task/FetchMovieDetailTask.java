@@ -79,7 +79,7 @@ public class FetchMovieDetailTask extends AsyncTask<Call, Void, MovieDetailsResu
             if (result.getPosterPath() != null)
             {
                 thumbnailImageView.setVisibility(View.VISIBLE);
-                Picasso.with(context).load(TmdbAPI.BASE_URL_IMAGES_LOW + result.getPosterPath()).into(thumbnailImageView);
+                Picasso.with(context).load(TmdbAPI.BASE_URL_IMAGES_HIGH + result.getPosterPath()).into(thumbnailImageView);
             }
 
             //display movie title
