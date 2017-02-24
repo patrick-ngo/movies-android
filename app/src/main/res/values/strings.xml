@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Movie Listings</string>
+    <string name="rating">Rating: </string>
+</resources>

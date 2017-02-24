@@ -1,0 +1,76 @@
+package ngo.patrick.movielistings.task;
+
+import android.os.AsyncTask;
+import android.util.Log;
+
+import java.io.IOException;
+
+import ngo.patrick.movielistings.adapter.MovieListAdapter;
+import ngo.patrick.movielistings.model.PageListingResult.PageListingResult;
+import ngo.patrick.movielistings.model.PageListingResult.Result;
+import retrofit2.Call;
+import retrofit2.Response;
+
+/**
+ * ASyncTask to retrieve the movie list
+ */
+
+public class FetchAllMoviesTask extends AsyncTask<Call, Void, PageListingResult>
+{
+    private final String LOG_TAG = FetchAllMoviesTask.class.getSimpleName();
+    /**
+     * Retrieve all movie data by network Request
+     * Retrieval done on separate thread to avoid cluttering main UI thread
+     */
+    private MovieListAdapter movieListAdapter;
+
+
+    public FetchAllMoviesTask(MovieListAdapter adapter)
+    {
+        super();
+
+        //set adapter
+        movieListAdapter = adapter;
+    }
+
+
+    //send the request
+    @Override
+    protected PageListingResult doInBackground(Call... params)
+    {
+        try
+        {
+            Call<PageListingResult> call = params[0];
+            Response<PageListingResult> response = call.execute();
+
+            return response.body();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    //once movie data retrieved, add to list adapter for display on the view
+    @Override
+    protected void onPostExecute(PageListingResult results)
+    {
+        if (results != null)
+        {
+            if (movieListAdapter != null)
+            {
+                //clear the list
+                movieListAdapter.clear();
+
+                //add new list
+                for (Result singleMovie : results.getResults())
+                {
+                    movieListAdapter.add(singleMovie);
+                }
+            }
+        }
+    }
+
+
+}
