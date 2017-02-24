@@ -9,8 +9,6 @@ import android.widget.Button;
 
 import ngo.patrick.movielistings.api.TmdbAPI;
 import ngo.patrick.movielistings.model.MovieDetailsResult.MovieDetailsResult;
-import ngo.patrick.movielistings.model.PageListingResult.PageListingResult;
-import ngo.patrick.movielistings.task.FetchAllMoviesTask;
 import ngo.patrick.movielistings.task.FetchMovieDetailTask;
 import retrofit2.Call;
 

@@ -47,6 +47,7 @@
 
     <TextView
         android:id="@+id/release_date"
+        android:visibility="invisible"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"

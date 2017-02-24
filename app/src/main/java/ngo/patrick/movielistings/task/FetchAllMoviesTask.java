@@ -1,11 +1,12 @@
 package ngo.patrick.movielistings.task;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 
 import java.io.IOException;
 
+import ngo.patrick.movielistings.MainActivity;
 import ngo.patrick.movielistings.adapter.MovieListAdapter;
 import ngo.patrick.movielistings.model.PageListingResult.PageListingResult;
 import ngo.patrick.movielistings.model.PageListingResult.Result;
@@ -24,12 +25,13 @@ public class FetchAllMoviesTask extends AsyncTask<Call, Void, PageListingResult>
      */
     private MovieListAdapter movieListAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private Context context;
 
-    public FetchAllMoviesTask(MovieListAdapter adapter, SwipeRefreshLayout swipeRefreshLayout)
+    public FetchAllMoviesTask(Context context, MovieListAdapter adapter, SwipeRefreshLayout swipeRefreshLayout)
     {
         super();
 
-        //set adapter
+        this.context = context;
         this.movieListAdapter = adapter;
         this.swipeRefreshLayout = swipeRefreshLayout;
     }
@@ -61,18 +63,29 @@ public class FetchAllMoviesTask extends AsyncTask<Call, Void, PageListingResult>
         {
             if (movieListAdapter != null)
             {
-                //clear the list
-                movieListAdapter.clear();
+                MainActivity activity = (MainActivity) context;
+
+                //not adding more, means pulled to refresh
+                if (!activity.isLoadingMore)
+                {
+                    movieListAdapter.clear();
+                }
 
                 //add new list
                 for (Result singleMovie : results.getResults())
                 {
                     movieListAdapter.add(singleMovie);
-                    Log.v("WTF", singleMovie.getTitle() );
                 }
 
                 //stop refresh animation
                 swipeRefreshLayout.setRefreshing(false);
+
+
+                //set loading flag to false
+                if (activity.isLoadingMore)
+                {
+                    activity.isLoadingMore = false;
+                }
             }
         }
     }

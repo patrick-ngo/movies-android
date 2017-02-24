@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -22,6 +23,9 @@ import retrofit2.Call;
 
 public class MainActivity extends AppCompatActivity
 {
+    private static Integer FIRST_PAGE = 1;
+    private static Integer MAX_PAGE = 25;
+
     private MovieListAdapter movieListAdapter;
 
     //API
@@ -32,6 +36,8 @@ public class MainActivity extends AppCompatActivity
 
     //current page number of the movie listings
     private Integer pageNumber = 1;
+
+    public Boolean isLoadingMore = false;
 
 
     @Override
@@ -70,20 +76,55 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onRefresh()
             {
-                refreshData();
+                resetData();
             }
         });
 
 
         //get initial data to display movie list
-        refreshData();
-    }
+        resetData();
 
-    private void refreshData()
+
+        //load more from bottom mechanism
+        listView.setOnScrollListener(new AbsListView.OnScrollListener()
+        {
+            public void onScrollStateChanged(AbsListView view, int scrollState)
+            {
+            }
+
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
+            {
+                if (pageNumber < MainActivity.MAX_PAGE)
+                {
+                    //find when the scroll has reached the bottom
+                    if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0)
+                    {
+                        if (isLoadingMore == false)
+                        {
+                            isLoadingMore = true;
+                            loadMoreData();
+                        }
+                    }
+                }
+            }
+        });
+    }
+    private void resetData()
     {
         //reset page number
-        pageNumber = 1;
+        pageNumber = FIRST_PAGE;
+        getData();
+    }
 
+    private void loadMoreData()
+    {
+        //increment page number
+        pageNumber++;
+        getData();
+    }
+
+    private void getData()
+    {
         //create api
         apiService = TmdbAPI.tmdb.create(TmdbAPI.class);
 
@@ -95,6 +136,6 @@ public class MainActivity extends AppCompatActivity
                 pageNumber);
 
         //get data
-        new FetchAllMoviesTask(movieListAdapter, swipeRefreshLayout).execute(call);
+        new FetchAllMoviesTask(this, movieListAdapter, swipeRefreshLayout).execute(call);
     }
 }
