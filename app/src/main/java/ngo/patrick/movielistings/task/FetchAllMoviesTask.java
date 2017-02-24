@@ -1,6 +1,7 @@
 package ngo.patrick.movielistings.task;
 
 import android.os.AsyncTask;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 
 import java.io.IOException;
@@ -22,14 +23,15 @@ public class FetchAllMoviesTask extends AsyncTask<Call, Void, PageListingResult>
      * Retrieval done on separate thread to avoid cluttering main UI thread
      */
     private MovieListAdapter movieListAdapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
-
-    public FetchAllMoviesTask(MovieListAdapter adapter)
+    public FetchAllMoviesTask(MovieListAdapter adapter, SwipeRefreshLayout swipeRefreshLayout)
     {
         super();
 
         //set adapter
-        movieListAdapter = adapter;
+        this.movieListAdapter = adapter;
+        this.swipeRefreshLayout = swipeRefreshLayout;
     }
 
 
@@ -66,7 +68,11 @@ public class FetchAllMoviesTask extends AsyncTask<Call, Void, PageListingResult>
                 for (Result singleMovie : results.getResults())
                 {
                     movieListAdapter.add(singleMovie);
+                    Log.v("WTF", singleMovie.getTitle() );
                 }
+
+                //stop refresh animation
+                swipeRefreshLayout.setRefreshing(false);
             }
         }
     }

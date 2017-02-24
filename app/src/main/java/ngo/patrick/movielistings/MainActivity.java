@@ -1,6 +1,7 @@
 package ngo.patrick.movielistings;
 
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +26,9 @@ public class MainActivity extends AppCompatActivity
 
     //API
     TmdbAPI apiService;
+
+    //pull to refresh
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     //current page number of the movie listings
     private Integer pageNumber = 1;
@@ -59,7 +63,26 @@ public class MainActivity extends AppCompatActivity
         });
 
 
+        //setup pull to refresh action
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+        {
+            @Override
+            public void onRefresh()
+            {
+                refreshData();
+            }
+        });
+
+
         //get initial data to display movie list
+        refreshData();
+    }
+
+    private void refreshData()
+    {
+        //reset page number
+        pageNumber = 1;
 
         //create api
         apiService = TmdbAPI.tmdb.create(TmdbAPI.class);
@@ -72,6 +95,6 @@ public class MainActivity extends AppCompatActivity
                 pageNumber);
 
         //get data
-        new FetchAllMoviesTask(movieListAdapter).execute(call);
+        new FetchAllMoviesTask(movieListAdapter, swipeRefreshLayout).execute(call);
     }
 }
