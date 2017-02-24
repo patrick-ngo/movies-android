@@ -24,6 +24,7 @@ public interface TmdbAPI
     public String BASE_URL_API = "http://api.themoviedb.org/3/";
     public String BASE_URL_IMAGES_LOW = "https://image.tmdb.org/t/p/w185";      //use w185 size for listview
     public String BASE_URL_IMAGES_HIGH = "https://image.tmdb.org/t/p/w500";     //use w500 size for detailview
+    public String CATHAY_CINEPLEXES = "http://www.cathaycineplexes.com.sg";     //when pressing on the purchase ticket button
 
     //hardcoded query parameters
     public String API_KEY = "328c283cd27bd1877d9080ccb1604c91";

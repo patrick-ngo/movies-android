@@ -103,5 +103,14 @@
         android:textSize="12sp"
         android:textStyle="normal|italic" />
 
+    <Button
+        android:id="@+id/book_button"
+        android:text="@string/book_movie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/genres"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
 </ScrollView>
