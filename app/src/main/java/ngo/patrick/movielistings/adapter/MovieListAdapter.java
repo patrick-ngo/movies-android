@@ -58,7 +58,6 @@ public class MovieListAdapter extends ArrayAdapter<Result>
 
             //setup ViewHolder by finding appropriate components
             viewHolder = new ViewHolderMovieItem();
-            viewHolder.idTextView = (TextView) v.findViewById(R.id.id);
             viewHolder.captionTextView = (TextView) v.findViewById(R.id.title);
             viewHolder.thumbnailView = (ImageView) v.findViewById(R.id.poster);
             viewHolder.ratingTextView = (TextView) v.findViewById(R.id.rating);
@@ -78,7 +77,7 @@ public class MovieListAdapter extends ArrayAdapter<Result>
         {
             //title
             if (viewHolder.captionTextView != null) {
-                viewHolder.captionTextView.setText(movieItem.getOriginalTitle());
+                viewHolder.captionTextView.setText(movieItem.getTitle());
             }
 
             //popularity
@@ -98,12 +97,11 @@ public class MovieListAdapter extends ArrayAdapter<Result>
                 {
                     Picasso.with(getContext()).load(TmdbAPI.BASE_URL_IMAGES_LOW + movieItem.getPosterPath()).into(viewHolder.thumbnailView);
                 }
-            }
-
-            //id (FOR DEBUG)
-            if (viewHolder.idTextView != null)
-            {
-                viewHolder.idTextView.setText(Integer.toString(movieItem.getId()));
+                //clear image if no image
+                else
+                {
+                    viewHolder.thumbnailView.setImageResource(android.R.color.transparent);
+                }
             }
         }
 

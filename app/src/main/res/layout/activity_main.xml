@@ -14,8 +14,6 @@
         android:id="@+id/listview_movielist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello World!"
-        android:dividerHeight="2dp"
-        android:divider="#9eaac7" />
+        android:dividerHeight="2dp" />
 
 </FrameLayout>

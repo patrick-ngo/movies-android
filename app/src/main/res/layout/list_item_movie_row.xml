@@ -3,36 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:paddingBottom="4dp"
+    android:paddingTop="4dp"
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="70dp"
-        android:textColor="#000000"
         android:id="@+id/poster"
-        android:text="image"
-        android:height="20sp"
+        android:layout_width="60dp"
         android:layout_gravity="center"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/rating"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
         android:layout_alignTop="@+id/title"
-        android:layout_height="50dp" />
+        android:layout_height="70dp" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
-        android:height="20sp"
-        android:layout_row="1"
-        android:layout_column="1"
-        android:layout_rowSpan="2"
         android:layout_toRightOf="@+id/poster"
         android:layout_toEndOf="@+id/poster"
         android:maxLines="4"
@@ -40,50 +32,31 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
         android:layout_alignParentTop="true"
-        android:text="Movie Title"
-        android:textAlignment="center"
-        android:textSize="18sp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
     <TextView
         android:id="@+id/rating"
         android:layout_width="130dp"
         android:layout_height="15dp"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Popularity"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:layout_below="@+id/title"
         android:layout_alignLeft="@+id/title"
         android:layout_alignStart="@+id/title"
-        android:textStyle="italic"
-        android:layout_alignBottom="@+id/release_date" />
+        android:layout_alignBottom="@+id/release_date"
+        android:textSize="12sp" />
 
     <TextView
+        android:id="@+id/release_date"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Release Date"
-        android:id="@+id/release_date"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:layout_below="@+id/title"
         android:layout_toRightOf="@+id/rating"
+        android:layout_toEndOf="@+id/rating"
         android:layout_marginLeft="80dp"
         android:layout_marginStart="0dp"
-        android:textStyle="italic"
         android:layout_alignRight="@+id/title"
-        android:layout_alignEnd="@+id/title" />
-
-    <TextView
-        android:textColor="#000000"
-        android:id="@+id/id"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:textStyle="bold"
-        android:gravity="left"
-        android:layout_weight="1"
-        android:typeface="monospace"
-        android:height="40sp"
-        android:layout_row="0"
-        android:layout_column="0"
-        android:layout_toRightOf="@+id/release_date"
-        android:layout_toEndOf="@+id/release_date"
-        android:layout_alignBottom="@+id/rating" />
+        android:layout_alignEnd="@+id/title"
+        android:textSize="12sp" />
 
 </RelativeLayout>
