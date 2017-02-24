@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Movie Listings</string>
-    <string name="rating">Rating: </string>
+    <string name="rating">Rating:</string>
+    <string name="minutes">Minutes</string>
+
+    <!--intent id-->
+    <string name="intent_movie_id" translatable="false">movie_id</string>
 </resources>

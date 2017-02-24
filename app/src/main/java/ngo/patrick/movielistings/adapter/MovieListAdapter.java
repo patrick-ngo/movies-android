@@ -60,7 +60,7 @@ public class MovieListAdapter extends ArrayAdapter<Result>
             viewHolder = new ViewHolderMovieItem();
             viewHolder.idTextView = (TextView) v.findViewById(R.id.id);
             viewHolder.captionTextView = (TextView) v.findViewById(R.id.title);
-            viewHolder.thumbnailView = (ImageView) v.findViewById(R.id.thumbnail);
+            viewHolder.thumbnailView = (ImageView) v.findViewById(R.id.poster);
             viewHolder.ratingTextView = (TextView) v.findViewById(R.id.rating);
             viewHolder.releaseDateTextView = (TextView) v.findViewById(R.id.release_date);
             v.setTag(viewHolder);

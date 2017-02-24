@@ -12,12 +12,11 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 /**
- * ASyncTask to retrieve the movie list
+ * ASyncTask to retrieve the movie list and display it in the listview via the adapter
  */
 
 public class FetchAllMoviesTask extends AsyncTask<Call, Void, PageListingResult>
 {
-    private final String LOG_TAG = FetchAllMoviesTask.class.getSimpleName();
     /**
      * Retrieve all movie data by network Request
      * Retrieval done on separate thread to avoid cluttering main UI thread
