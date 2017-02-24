@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import ngo.patrick.movielistings.adapter.MovieListAdapter;
@@ -26,18 +28,16 @@ public class MainActivity extends AppCompatActivity
     private static Integer FIRST_PAGE = 1;
     private static Integer MAX_PAGE = 25;
 
-    private MovieListAdapter movieListAdapter;
-
     //API
     TmdbAPI apiService;
 
-    //pull to refresh
-    private SwipeRefreshLayout swipeRefreshLayout;
+    public MovieListAdapter movieListAdapter;           //adapter to display the movies to view
+    public SwipeRefreshLayout swipeRefreshLayout;       //pull to refresh
+    public Boolean isLoadingMore = false;               //flag to know when listview is bottom loading
 
-    //current page number of the movie listings
-    private Integer pageNumber = 1;
-
-    public Boolean isLoadingMore = false;
+    private ListView listView;                          //main listview
+    private ProgressBar progressBarLoadMore;            //bottom loading progress bar
+    private Integer pageNumber = 1;                     //current page number of the movie listings
 
 
     @Override
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity
 
         //create a MovieListAdapter and bind it to the listview in the layout
         movieListAdapter = new MovieListAdapter(this, R.layout.list_item_movie_row);
-        ListView listView = (ListView) findViewById(R.id.listview_movielist);
+        listView = (ListView) findViewById(R.id.listview_movielist);
         listView.setAdapter(movieListAdapter);
 
 
@@ -101,13 +101,13 @@ public class MainActivity extends AppCompatActivity
                     {
                         if (isLoadingMore == false)
                         {
-                            isLoadingMore = true;
                             loadMoreData();
                         }
                     }
                 }
             }
         });
+
     }
     private void resetData()
     {
@@ -118,8 +118,10 @@ public class MainActivity extends AppCompatActivity
 
     private void loadMoreData()
     {
-        //increment page number
+        //set flag, increment page number and show loading
+        isLoadingMore = true;
         pageNumber++;
+        showBottomLoading(true);
         getData();
     }
 
@@ -136,6 +138,24 @@ public class MainActivity extends AppCompatActivity
                 pageNumber);
 
         //get data
-        new FetchAllMoviesTask(this, movieListAdapter, swipeRefreshLayout).execute(call);
+        new FetchAllMoviesTask(this).execute(call);
+    }
+
+    public void showBottomLoading(Boolean show)
+    {
+        if (progressBarLoadMore == null)
+        {
+            progressBarLoadMore = new ProgressBar(this);
+        }
+
+        //add or remove the progressBar from the footer to create a bottom loading effect
+        if (show)
+        {
+            listView.addFooterView(progressBarLoadMore);
+        }
+        else
+        {
+            listView.removeFooterView(progressBarLoadMore);
+        }
     }
 }

@@ -23,17 +23,14 @@ public class FetchAllMoviesTask extends AsyncTask<Call, Void, PageListingResult>
      * Retrieve all movie data by network Request
      * Retrieval done on separate thread to avoid cluttering main UI thread
      */
-    private MovieListAdapter movieListAdapter;
-    private SwipeRefreshLayout swipeRefreshLayout;
     private Context context;
 
-    public FetchAllMoviesTask(Context context, MovieListAdapter adapter, SwipeRefreshLayout swipeRefreshLayout)
+    public FetchAllMoviesTask(Context context)
     {
         super();
 
+        //set context
         this.context = context;
-        this.movieListAdapter = adapter;
-        this.swipeRefreshLayout = swipeRefreshLayout;
     }
 
 
@@ -61,31 +58,30 @@ public class FetchAllMoviesTask extends AsyncTask<Call, Void, PageListingResult>
     {
         if (results != null)
         {
-            if (movieListAdapter != null)
+            MainActivity activity = (MainActivity) context;
+
+            //not adding more, means pulled to refresh
+            if (!activity.isLoadingMore)
             {
-                MainActivity activity = (MainActivity) context;
+                activity.movieListAdapter.clear();
+            }
 
-                //not adding more, means pulled to refresh
-                if (!activity.isLoadingMore)
-                {
-                    movieListAdapter.clear();
-                }
+            //add new list
+            for (Result singleMovie : results.getResults())
+            {
+                activity.movieListAdapter.add(singleMovie);
+            }
 
-                //add new list
-                for (Result singleMovie : results.getResults())
-                {
-                    movieListAdapter.add(singleMovie);
-                }
-
-                //stop refresh animation
-                swipeRefreshLayout.setRefreshing(false);
-
-
-                //set loading flag to false
-                if (activity.isLoadingMore)
-                {
-                    activity.isLoadingMore = false;
-                }
+            //stop bottom loading
+            if (activity.isLoadingMore)
+            {
+                activity.isLoadingMore = false;
+                activity.showBottomLoading(false);
+            }
+            else
+            {
+                //stop pull to refresh animation
+                activity.swipeRefreshLayout.setRefreshing(false);
             }
         }
     }
