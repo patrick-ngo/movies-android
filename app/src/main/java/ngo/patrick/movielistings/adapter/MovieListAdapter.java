@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -22,6 +23,9 @@ import ngo.patrick.movielistings.model.PageListingResult.Result;
 
 public class MovieListAdapter extends ArrayAdapter<Result>
 {
+    public static Integer MAX_RATING;
+    public static Integer MAX_PROGRESS;
+
     // ViewHolder to avoid findViewById() calls by caching the component view references
     static class ViewHolderMovieItem
     {
@@ -30,6 +34,7 @@ public class MovieListAdapter extends ArrayAdapter<Result>
         ImageView thumbnailView;            //thumbnail
         TextView ratingTextView;            //rating
         TextView releaseDateTextView;       //release date
+        ProgressBar progressBar;            //progress bar to also represent the rating
     }
 
     ViewHolderMovieItem viewHolder;
@@ -37,6 +42,9 @@ public class MovieListAdapter extends ArrayAdapter<Result>
     public MovieListAdapter(Context context, int textViewResourceId)
     {
         super(context, textViewResourceId);
+
+        this.MAX_RATING = getContext().getResources().getInteger(R.integer.max_rating);
+        this.MAX_PROGRESS = getContext().getResources().getInteger(R.integer.max_progressbar_value);
     }
 
     public MovieListAdapter(Context context, int resource, List<Result> items)
@@ -62,6 +70,7 @@ public class MovieListAdapter extends ArrayAdapter<Result>
             viewHolder.thumbnailView = (ImageView) v.findViewById(R.id.poster);
             viewHolder.ratingTextView = (TextView) v.findViewById(R.id.rating);
             viewHolder.releaseDateTextView = (TextView) v.findViewById(R.id.release_date);
+            viewHolder.progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
             v.setTag(viewHolder);
         }
         else
@@ -76,13 +85,22 @@ public class MovieListAdapter extends ArrayAdapter<Result>
         if (movieItem != null)
         {
             //title
-            if (viewHolder.captionTextView != null) {
+            if (viewHolder.captionTextView != null)
+            {
                 viewHolder.captionTextView.setText(movieItem.getTitle());
             }
 
             //popularity
-            if (viewHolder.ratingTextView != null) {
-                viewHolder.ratingTextView.setText(getContext().getString(R.string.rating) + movieItem.getPopularity().toString());
+            if (viewHolder.ratingTextView != null)
+            {
+                viewHolder.ratingTextView.setText(getContext().getString(R.string.rating) + " " + movieItem.getPopularity().toString());
+            }
+
+            //popularity progress bar
+            if (viewHolder.progressBar != null)
+            {
+                Double percentage = ((movieItem.getPopularity() / MAX_RATING)* MAX_PROGRESS);
+                viewHolder.progressBar.setProgress(percentage.intValue());
             }
 
             //release date

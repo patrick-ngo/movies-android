@@ -25,8 +25,8 @@ import retrofit2.Call;
 
 public class MainActivity extends AppCompatActivity
 {
-    private static Integer FIRST_PAGE = 1;
-    private static Integer MAX_PAGE = 25;
+    private static Integer FIRST_PAGE;
+    private static Integer MAX_PAGE;
 
     //API
     TmdbAPI apiService;
@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FIRST_PAGE = getResources().getInteger(R.integer.first_page);
+        MAX_PAGE = getResources().getInteger(R.integer.max_pages);
 
         //create a MovieListAdapter and bind it to the listview in the layout
         movieListAdapter = new MovieListAdapter(this, R.layout.list_item_movie_row);

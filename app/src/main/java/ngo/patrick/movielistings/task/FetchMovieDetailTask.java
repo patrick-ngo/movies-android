@@ -6,19 +6,25 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
+import ngo.patrick.movielistings.MainActivity;
 import ngo.patrick.movielistings.R;
+import ngo.patrick.movielistings.adapter.MovieListAdapter;
 import ngo.patrick.movielistings.api.TmdbAPI;
 import ngo.patrick.movielistings.model.MovieDetailsResult.Genre;
 import ngo.patrick.movielistings.model.MovieDetailsResult.MovieDetailsResult;
 import ngo.patrick.movielistings.model.MovieDetailsResult.SpokenLanguage;
 import retrofit2.Call;
 import retrofit2.Response;
+
+import static ngo.patrick.movielistings.adapter.MovieListAdapter.MAX_PROGRESS;
+import static ngo.patrick.movielistings.adapter.MovieListAdapter.MAX_RATING;
 
 /**
  * ASyncTask to retrieve the details of a specific movie and display it on the main view
@@ -92,8 +98,13 @@ public class FetchMovieDetailTask extends AsyncTask<Call, Void, MovieDetailsResu
             //display popularity
             if (result.getPopularity() != null)
             {
+                //TODO: not sure why there is a difference of 1 in the popularity values from both api calls?
                 TextView ratingTextView =  ((TextView) rootView.findViewById(R.id.popularity));
-                ratingTextView.setText( context.getResources().getString(R.string.rating) + " " + result.getPopularity());
+                ratingTextView.setText( context.getResources().getString(R.string.rating) + " " + (result.getPopularity()+1));
+
+                ProgressBar progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+                Double percentage = (((result.getPopularity()+1) / MAX_RATING)* MovieListAdapter.MAX_PROGRESS);
+                progressBar.setProgress(percentage.intValue());
             }
 
             //display synopsis

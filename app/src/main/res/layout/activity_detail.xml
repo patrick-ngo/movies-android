@@ -40,7 +40,7 @@
     <ImageView
         android:id="@+id/poster"
         android:layout_height="300dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_below="@+id/popularity"
         android:layout_alignParentLeft="true"
@@ -53,7 +53,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:text="@string/app_name"
         android:layout_below="@+id/poster"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -111,6 +110,17 @@
         android:layout_marginTop="12dp"
         android:layout_below="@+id/genres"
         android:layout_centerHorizontal="true" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/popularity"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/progressBar"
+        android:layout_alignRight="@+id/book_button"
+        android:layout_alignEnd="@+id/book_button" />
 
 </RelativeLayout>
 </ScrollView>

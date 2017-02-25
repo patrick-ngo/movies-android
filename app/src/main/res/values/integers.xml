@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--constants for listview of movies-->
+    <integer name="first_page">1</integer>
+    <integer name="max_pages">25</integer>
+
+    <!--progress bar to represent popularity-->
+    <integer name="max_rating">10</integer>
+    <integer name="max_progressbar_value">100</integer>
+</resources>

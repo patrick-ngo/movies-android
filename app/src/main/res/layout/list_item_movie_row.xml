@@ -43,7 +43,8 @@
         android:layout_alignLeft="@+id/title"
         android:layout_alignStart="@+id/title"
         android:layout_alignBottom="@+id/release_date"
-        android:textSize="12sp" />
+        android:textSize="10sp"
+        android:textStyle="normal|italic" />
 
     <TextView
         android:id="@+id/release_date"
@@ -59,5 +60,17 @@
         android:layout_alignRight="@+id/title"
         android:layout_alignEnd="@+id/title"
         android:textSize="12sp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/rating"
+        android:layout_alignLeft="@+id/rating"
+        android:layout_alignStart="@+id/rating"
+        android:layout_marginTop="4dp"
+        android:layout_height="3dp"
+        android:layout_toLeftOf="@+id/release_date"
+        android:layout_toStartOf="@+id/release_date" />
 
 </RelativeLayout>
