@@ -29,7 +29,6 @@ public class MovieListAdapter extends ArrayAdapter<Result>
     // ViewHolder to avoid findViewById() calls by caching the component view references
     static class ViewHolderMovieItem
     {
-        TextView idTextView;                //id
         TextView captionTextView;           //caption
         ImageView thumbnailView;            //thumbnail
         TextView ratingTextView;            //rating
@@ -104,7 +103,8 @@ public class MovieListAdapter extends ArrayAdapter<Result>
             }
 
             //release date
-            if (viewHolder.releaseDateTextView != null) {
+            if (viewHolder.releaseDateTextView != null)
+            {
                 viewHolder.releaseDateTextView.setText(movieItem.getReleaseDate());
             }
 

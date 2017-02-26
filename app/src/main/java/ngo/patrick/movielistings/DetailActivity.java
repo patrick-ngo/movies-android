@@ -12,6 +12,10 @@ import ngo.patrick.movielistings.model.MovieDetailsResult.MovieDetailsResult;
 import ngo.patrick.movielistings.task.FetchMovieDetailTask;
 import retrofit2.Call;
 
+/**
+ *  Detail Activity: Displays details about a specific movie selected from the MainActivity
+ */
+
 public class DetailActivity extends AppCompatActivity
 {
     @Override
