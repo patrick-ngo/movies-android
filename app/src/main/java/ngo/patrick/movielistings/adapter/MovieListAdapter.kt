@@ -66,34 +66,37 @@ class MovieListAdapter : ArrayAdapter<Result> {
 
         //Display data to the appropriate components
         if (movieItem != null) {
+
             //title
-            if (viewHolder?.captionTextView != null) {
-                viewHolder?.captionTextView!!.text = movieItem.title
+            viewHolder?.captionTextView?.let {
+                it.text = movieItem.title
             }
 
             //popularity
-            if (viewHolder?.ratingTextView != null) {
-                viewHolder?.ratingTextView!!.text = context.getString(R.string.rating) + " " + movieItem.popularity!!.toString()
+            viewHolder?.ratingTextView?.let {
+                it.text = context.getString(R.string.rating) + " " + movieItem.popularity!!.toString()
             }
 
             //popularity progress bar
-            if (viewHolder?.progressBar != null) {
-                val percentage = movieItem.popularity!! / MAX_RATING!! * MAX_PROGRESS!!
-                viewHolder?.progressBar!!.progress = percentage.toInt()
+            viewHolder?.progressBar?.let {
+                val percentage = movieItem.popularity / MAX_RATING * MAX_PROGRESS
+                it.progress = percentage.toInt()
             }
 
             //release date
-            if (viewHolder?.releaseDateTextView != null) {
-                viewHolder?.releaseDateTextView!!.text = movieItem.releaseDate
+            viewHolder?.releaseDateTextView?.let {
+                it.text = movieItem.releaseDate
             }
 
             //thumbnail
-            if (viewHolder?.thumbnailView != null) {
+            viewHolder?.thumbnailView?.let {
                 if (movieItem.posterPath != null) {
-                    Picasso.with(context).load(TmdbAPI.BASE_URL_IMAGES_LOW + movieItem.posterPath).into(viewHolder!!.thumbnailView)
-                } else {
-                    viewHolder?.thumbnailView!!.setImageResource(android.R.color.transparent)
-                }//clear image if no image
+                    Picasso.with(context).load(TmdbAPI.BASE_URL_IMAGES_LOW + movieItem.posterPath).into(it)
+                }
+                else {
+                    //clear image if no image
+                    it.setImageResource(android.R.color.transparent)
+                }
             }
         }
 
