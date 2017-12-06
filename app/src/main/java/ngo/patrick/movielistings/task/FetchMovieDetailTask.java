@@ -13,7 +13,6 @@ import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
-import ngo.patrick.movielistings.MainActivity;
 import ngo.patrick.movielistings.R;
 import ngo.patrick.movielistings.adapter.MovieListAdapter;
 import ngo.patrick.movielistings.api.TmdbAPI;
@@ -23,8 +22,6 @@ import ngo.patrick.movielistings.model.MovieDetailsResult.SpokenLanguage;
 import retrofit2.Call;
 import retrofit2.Response;
 
-import static ngo.patrick.movielistings.adapter.MovieListAdapter.MAX_PROGRESS;
-import static ngo.patrick.movielistings.adapter.MovieListAdapter.MAX_RATING;
 
 /**
  * ASyncTask to retrieve the details of a specific movie and display it on the main view
@@ -103,7 +100,7 @@ public class FetchMovieDetailTask extends AsyncTask<Call, Void, MovieDetailsResu
                 ratingTextView.setText( context.getResources().getString(R.string.rating) + " " + (result.getPopularity()+1));
 
                 ProgressBar progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
-                Double percentage = (((result.getPopularity()+1) / MAX_RATING)* MovieListAdapter.MAX_PROGRESS);
+                Double percentage = (((result.getPopularity()+1) / MovieListAdapter.Companion.getMAX_RATING())* MovieListAdapter.Companion.getMAX_PROGRESS());
                 progressBar.setProgress(percentage.intValue());
             }
 
