@@ -38,7 +38,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun refreshData() {
         //create api
-        val apiService = TmdbAPI.tmdb.create<TmdbAPI>(TmdbAPI::class.java!!)
+        val apiService = TmdbAPI.tmdb.create<TmdbAPI>(TmdbAPI::class.java)
         val rootView = findViewById(R.id.activity_detail)         //keep reference of root view to send to the async task
         val movieID = getString(R.string.intent_movie_id)       //get movie id from intent
 

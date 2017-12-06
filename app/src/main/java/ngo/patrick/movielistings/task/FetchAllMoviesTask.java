@@ -61,27 +61,27 @@ public class FetchAllMoviesTask extends AsyncTask<Call, Void, PageListingResult>
             MainActivity activity = (MainActivity) context;
 
             //not adding more, means pulled to refresh
-            if (!activity.isLoadingMore)
+            if (!activity.isLoadingMore())
             {
-                activity.movieListAdapter.clear();
+                activity.getMovieListAdapter().clear();
             }
 
             //add new list
             for (Result singleMovie : results.getResults())
             {
-                activity.movieListAdapter.add(singleMovie);
+                activity.getMovieListAdapter().add(singleMovie);
             }
 
             //stop bottom loading
-            if (activity.isLoadingMore)
+            if (activity.isLoadingMore())
             {
-                activity.isLoadingMore = false;
+                activity.setLoadingMore(false);
                 activity.showBottomLoading(false);
             }
             else
             {
                 //stop pull to refresh animation
-                activity.swipeRefreshLayout.setRefreshing(false);
+                activity.getSwipeRefreshLayout().setRefreshing(false);
             }
         }
     }
